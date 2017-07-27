@@ -8,11 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var properNameView: UITextView!
+    var properNames = Names()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        properNameView.text = properNames?.namesString
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +24,18 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        properNames?.add(name: textField.text)
+        
+        properNameView.text = properNames?.namesString
+        
+        textField.text = ""
+        
+        // close the keyboard
+        textField.resignFirstResponder()
+        
+        return true;
+    }
 
 }
 
